@@ -10,7 +10,6 @@ import android.os.Looper
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
-import android.util.Property
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.mapbox.android.core.location.LocationEngineCallback

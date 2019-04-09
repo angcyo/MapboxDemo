@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import com.angcyo.mapboxdemo.RMapbox.TOKEN
 import com.mapbox.android.core.location.LocationEngineCallback
 import com.mapbox.android.core.location.LocationEngineRequest
 import com.mapbox.android.core.location.LocationEngineResult
@@ -47,10 +48,6 @@ class MainActivity : AppCompatActivity(), MapboxMap.OnMapClickListener {
         super.onCreate(savedInstanceState)
 
         //必须在使用MapView之前调用
-        Mapbox.getInstance(
-            applicationContext,
-            "pk.eyJ1Ijoid2F5dG8iLCJhIjoiY2p0ZmRzYmEwMWQxMDQwbXVicW1vaXRidCJ9.lkCxE4JJAsC31XNhkw8BYQ"
-        )
 
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)

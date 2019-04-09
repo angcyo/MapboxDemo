@@ -18,15 +18,12 @@ import com.mapbox.mapboxsdk.plugins.china.maps.ChinaMapView
  */
 class NewActivity : AppCompatActivity() {
 
-    lateinit var map_view: ChinaMapView
+    lateinit var map_view: MapView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-        Mapbox.getInstance(this, TOKEN)
-
-        map_view = ChinaMapView(this)
+        map_view = MapView(this)
         setContentView(map_view)
 
         map_view.onCreate(savedInstanceState)

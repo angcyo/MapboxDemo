@@ -3,6 +3,7 @@ package com.angcyo.mapboxdemo
 import android.Manifest
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
@@ -23,6 +24,7 @@ import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.annotations.MarkerOptions
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.geometry.LatLngQuad
+import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.layers.*
@@ -56,6 +58,8 @@ class MainActivity : AppCompatActivity(), MapboxMap.OnMapClickListener {
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+
+            startActivity(Intent(this, NewActivity::class.java))
         }
 
         checkPermissions()
@@ -119,18 +123,20 @@ class MainActivity : AppCompatActivity(), MapboxMap.OnMapClickListener {
                     }
                 }
 
-                L.e("${this}")
-                L.e("${this.locationEngine}")
-                L.e("${this.compassEngine}")
+                activateLocationComponent(LocationComponentActivationOptions.Builder(applicationContext, style).build())
 
-                activateLocationComponent(applicationContext, style, true)
+//                L.e("${this}")
+//                L.e("${this.locationEngine}")
+//                L.e("${this.compassEngine}")
+
+//                activateLocationComponent(applicationContext, style, true)
 //                isLocationComponentEnabled = true
 //                cameraMode = CameraMode.TRACKING
 //                renderMode = RenderMode.COMPASS
 
-                L.e("${this}")
-                L.e("${this.locationEngine}")
-                L.e("${this.compassEngine}")
+//                L.e("${this}")
+//                L.e("${this.locationEngine}")
+//                L.e("${this.compassEngine}")
 
                 locationEngine?.requestLocationUpdates(
                     LocationEngineRequest.Builder(1000)

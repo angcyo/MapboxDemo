@@ -8,10 +8,11 @@ import com.mapbox.android.core.location.LocationEngineCallback;
 import com.mapbox.android.core.location.LocationEngineResult;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.location.LocationComponent;
-import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
+import com.mapbox.mapboxsdk.plugins.china.constants.ChinaStyle;
+import com.mapbox.mapboxsdk.plugins.china.maps.ChinaMapView;
 import com.mapbox.mapboxsdk.plugins.localization.LocalizationPlugin;
 import com.mapbox.mapboxsdk.plugins.localization.MapLocale;
 import com.mapbox.mapboxsdk.plugins.markerview.MarkerView;
@@ -31,15 +32,20 @@ import java.lang.reflect.Method;
  */
 public class RMapbox {
 
-    public static void init(@NonNull MapView mapView, @Nullable OnMapReady onMapReady) {
+    public static String TOKEN = "pk.eyJ1Ijoid2F5dG8iLCJhIjoiY2p0ZmRzYmEwMWQxMDQwbXVicW1vaXRidCJ9.lkCxE4JJAsC31XNhkw8BYQ";
+
+    public static void init(@NonNull ChinaMapView mapView, @Nullable OnMapReady onMapReady) {
         //ChinaStyle.MAPBOX_STREETS_CHINESE
+        //Style.MAPBOX_STREETS
         init(mapView, Style.MAPBOX_STREETS, onMapReady);
     }
 
-    public static void init(@NonNull final MapView mapView, @NonNull final String style, @Nullable final OnMapReady onMapReady) {
+    public static void init(@NonNull final ChinaMapView mapView, @NonNull final String style, @Nullable final OnMapReady onMapReady) {
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull final MapboxMap mapboxMap) {
+                mapboxMap.setDebugActive(BuildConfig.DEBUG);
+
                 mapboxMap.setStyle(style, new Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
@@ -118,7 +124,7 @@ public class RMapbox {
          * @see com.mapbox.mapboxsdk.maps.OnMapReadyCallback#onMapReady(MapboxMap)
          * @see Style.OnStyleLoaded#onStyleLoaded(Style)
          */
-        public Builder setMapLanguage(@NonNull MapView mapView, @NonNull Style style, final String language) {
+        public Builder setMapLanguage(@NonNull ChinaMapView mapView, @NonNull Style style, final String language) {
             LocalizationPlugin localizationPlugin = new LocalizationPlugin(mapView, mapboxMap, style);
             localizationPlugin.setMapLanguage(language);
             localizationPlugin.matchMapLanguageWithDeviceDefault();
@@ -128,14 +134,14 @@ public class RMapbox {
         /**
          * 简体中文
          */
-        public Builder setMapDefaultLanguage(@NonNull MapView mapView, @NonNull Style style) {
+        public Builder setMapDefaultLanguage(@NonNull ChinaMapView mapView, @NonNull Style style) {
             setMapLanguage(mapView, style, MapLocale.SIMPLIFIED_CHINESE);
             return this;
         }
 
         MarkerViewManager markerViewManager;
 
-        public Builder addMarker(@NonNull MapView mapView, @NonNull final LatLng latlng, @NonNull final View view) {
+        public Builder addMarker(@NonNull ChinaMapView mapView, @NonNull final LatLng latlng, @NonNull final View view) {
             if (markerViewManager == null) {
                 markerViewManager = new MarkerViewManager(mapView, mapboxMap);
             }
